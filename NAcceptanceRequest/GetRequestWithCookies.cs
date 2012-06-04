@@ -11,11 +11,13 @@ namespace NAcceptanceRequest
         public GetRequestWithCookies(string url, IEnumerable<CookieData> cookies)
             : base(url)
         {
+            Uri uri = new Uri(url);
+
             Request.CookieContainer = new CookieContainer();
 
             foreach (CookieData cookie in cookies)
             {
-                Request.CookieContainer.Add(new Cookie(cookie.Key, cookie.Value));
+                Request.CookieContainer.Add(new Cookie(cookie.Key, cookie.Value, "/", uri.DnsSafeHost));
             }
         }
     }
