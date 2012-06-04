@@ -44,6 +44,7 @@ namespace NAcceptanceRequest
                 }
             }
 
+            Request.UserAgent = "NAcceptanceRequest";
             Request.AllowAutoRedirect = false;
             Request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
         }
