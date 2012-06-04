@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRequest.cs" />
+    <Compile Include="CookieData.cs" />
     <Compile Include="Exceptions\RequestFailedException.cs" />
     <Compile Include="Exceptions\RequestNotMadeException.cs" />
     <Compile Include="GetRequest.cs" />
+    <Compile Include="GetRequestWithCookies.cs" />
+    <Compile Include="HeaderData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

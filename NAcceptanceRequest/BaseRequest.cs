@@ -18,8 +18,14 @@ namespace NAcceptanceRequest
         private bool _called = false;
         private int _statusCode;
         private string _statusDescription;
+        private IList<HeaderData> _responseHeaders = new List<HeaderData>();
 
         public BaseRequest(string url)
+            : this(url, null)
+        {
+        }
+
+        public BaseRequest(string url, IEnumerable<HeaderData> headers)
         {
             try
             {
@@ -28,6 +34,14 @@ namespace NAcceptanceRequest
             catch (Exception ex)
             {
                 throw new RequestFailedException(ex);
+            }
+
+            if (headers != null)
+            {
+                foreach (HeaderData header in headers)
+                {
+                    Request.Headers.Add(header.Name, header.Value);
+                }
             }
 
             Request.AllowAutoRedirect = false;
@@ -73,6 +87,19 @@ namespace NAcceptanceRequest
             }
         }
 
+        public IEnumerable<HeaderData> ResponseHeaders
+        {
+            get
+            {
+                if (!_called)
+                {
+                    throw new RequestNotMadeException();
+                }
+
+                return _responseHeaders;
+            }
+        }
+
         public void MakeRequest()
         {
             try
@@ -90,6 +117,11 @@ namespace NAcceptanceRequest
                         
             _statusCode = (int)Response.StatusCode;
             _statusDescription = Response.StatusDescription;
+
+            foreach (string key in Response.Headers.AllKeys)
+            {
+                _responseHeaders.Add(new HeaderData(key, Response.Headers[key]));
+            }
 
             using (StreamReader reader = new StreamReader(Response.GetResponseStream()))
             {
