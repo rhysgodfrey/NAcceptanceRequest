@@ -47,6 +47,7 @@
     <Compile Include="Exceptions\RequestNotMadeException.cs" />
     <Compile Include="GetRequest.cs" />
     <Compile Include="GetRequestWithCookies.cs" />
+    <Compile Include="GetRequestWithUserAgent.cs" />
     <Compile Include="HeaderData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
