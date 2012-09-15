@@ -6,6 +6,7 @@ using System.Net;
 using NAcceptanceRequest.Exceptions;
 using System.IO;
 using System.Net.Cache;
+using System.Configuration;
 
 namespace NAcceptanceRequest
 {
@@ -44,7 +45,8 @@ namespace NAcceptanceRequest
                 }
             }
 
-            Request.UserAgent = "NAcceptanceRequest";
+            string configUserAgent = ConfigurationManager.AppSettings["NAcceptanceRequest.UserAgent"];
+            Request.UserAgent = String.IsNullOrWhiteSpace(configUserAgent) ? "NAcceptanceRequest" : configUserAgent;
             Request.AllowAutoRedirect = false;
             Request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
         }
